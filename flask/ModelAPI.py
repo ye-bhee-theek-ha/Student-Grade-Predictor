@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from sklearn.linear_model import LinearRegression
-import joblib
+import joblib 
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -23,6 +23,9 @@ def predict():
 
     # Make prediction using the pre-trained model
     prediction = model.predict(input_data)
+
+    if prediction[0] < 0:
+        prediction[0] = 0.00
 
     # Return the prediction as JSON response
     return jsonify({'prediction': prediction[0]})
